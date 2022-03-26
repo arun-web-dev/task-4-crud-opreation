@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
+// use Navigate and make this as class component
 const AddContact = (props) => {
-  const [flag, setFlag] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
