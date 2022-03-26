@@ -1,57 +1,66 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { Component } from "react";
 
-// use Navigate and make this as class component
-const AddContact = (props) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const navigate = useNavigate();
-
-  const add = (e) => {
-    e.preventDefault();
-    if (!name || !email) return;
-    props.addContactHandler({ name, email });
-    setName("");
-    setEmail("");
-    console.log(navigate("/"));
+class AddContact extends Component {
+  state = {
+    name: "",
+    email: "",
   };
 
-  return (
-    <div
-      className="ui main  add-contact-container"
-      style={{ marginTop: "80px" }}
-    >
-      <div className="add-contact-container-heading">
-        <h2>Add Contact</h2>
-      </div>
-      <form className="ui form" onSubmit={add}>
-        <div className="field">
-          <label className="form-label">Name</label>
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            type="text"
-            name="name"
-            placeholder="Name"
-            required
-          />
+  add = (e) => {
+    e.preventDefault();
+    if (!this.state.name || !this.state.email) return;
+    this.props.addContactHandler(this.state);
+    this.setState({
+      name: "",
+      email: "",
+    });
+  };
+  render() {
+    return (
+      <div
+        className="ui main  add-contact-container"
+        style={{ marginTop: "80px" }}
+      >
+        <div className="add-contact-container-heading">
+          <h2>Add Contact</h2>
         </div>
-        <div className="field">
-          <label className="form-label">Email</label>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="text"
-            name="email"
-            placeholder="Email"
-            required
-          />
-        </div>
+        <form className="ui form" onSubmit={this.add}>
+          <div className="field">
+            <label className="form-label">Name</label>
+            <input
+              value={this.state.name}
+              onChange={(e) =>
+                this.setState({
+                  name: e.target.value,
+                })
+              }
+              type="text"
+              name="name"
+              placeholder="Name"
+              // required
+            />
+          </div>
+          <div className="field">
+            <label className="form-label">Email</label>
+            <input
+              value={this.state.email}
+              onChange={(e) =>
+                this.setState({
+                  email: e.target.value,
+                })
+              }
+              type="text"
+              name="email"
+              placeholder="Email"
+              // required
+            />
+          </div>
 
-        <button className="ui button add-btn">Add</button>
-      </form>
-    </div>
-  );
-};
+          <button className="ui button add-btn">Add</button>
+        </form>
+      </div>
+    );
+  }
+}
 
 export default AddContact;
